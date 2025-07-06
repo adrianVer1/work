@@ -87,7 +87,7 @@ UMF-CMGR-main\results\registration
          --ckpt ../checkpoints/DIFN/best_model.pth  
          --dst  ../results/fusion 
          --dim  64
-    ```
+```
 融合结果如下
 ```
 UMF-CMGR-main\results\fusion
