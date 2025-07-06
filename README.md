@@ -47,13 +47,13 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
 
 ## 开始测试
 1.使用CPSTN将可见光转为伪红外
-    ```python
+ ```
        cd cpstn
        python test.py  --dataroot ../datasets/rgb2ir/RoadScene/trainA  --name rgb2ir_paired_Road_edge_pretrained  --model test  --no_dropout  --preprocess none  --checkpoints_dir ./checkpoints/pretrained models.test_model
        python test.py  --dataroot ../datasets/rgb2ir/RoadScene/testA  --name rgb2ir_paired_Road_edge_pretrained  --model test  --no_dropout  --preprocess none  --checkpoints_dir ./checkpoints/pretrained models.test_model
-        ```
+```
 2.使用MRRN配准,对齐失真红外与伪红外
-    ```python
+```
        cd ../data
        Python get_test_data.py --ir ../datasets/rgb2ir/RoadScene/trainB --vi ../datasets/rgb2ir/RoadScene/trainA --dst ./deformable/train
        python get_test_data.py --ir ../datasets/rgb2ir/RoadScene/testB  --vi ../datasets/rgb2ir/RoadScene/testA  --dst ./deformable/test
@@ -65,9 +65,10 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
          --disp ../data/deformable/test  \
          --ckpt ../checkpoints/mrrn/best_model.pth  \
          --dst  ../results/registration \
-    ```
+ ```
 配准结果如下
-```UMF-CMGR-main\results\registration
+```
+UMF-CMGR-main\results\registration
 ├─ ir/          # 原始（失真）红外
 ├─ it/          # 伪红外（CPSTN 输出）
 ├─ ir_reg/      # 配准后的红外
@@ -78,7 +79,7 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
 └─ ir_reg_grid/ # 配准红外叠加网格
 ```
 3.使用DIFN融合,把配准后的红外图和原始可见光图进行特征级融合，生成最终的融合图
-    ```python
+```
        cd Test
        python test_fuse.py  
          --ir   ../results/registration/ir_reg  
@@ -88,16 +89,17 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
          --dim  64
     ```
 融合结果如下
+```
 UMF-CMGR-main\results\fusion
 ├─fused/: 最终融合图
 ├─ir/: 配准前的红外图
 └─ vi/: 对应的可见光图
-
+```
 
 4.配准评估
-    ```python
+```
        python metrics.py
-    ```
+```
 
 
 
