@@ -22,7 +22,8 @@ By Di Wang, Jinyuan Liu, Xin Fan, and Risheng Liu
 - Torchvision 0.7.0
 - OpenCV 3.4
 - Kornia 0.5.11
-Python 3.6 在 2021 年底停止维护（EOL），现在主流的深度学习框架（如 PyTorch 等）都已经不再支持它，所以复现时使用python3.8
+
+因为Python 3.6 在 2021 年底停止维护（EOL），现在主流的深度学习框架（如 PyTorch 等）都已经不再支持它，所以复现时使用python3.8
 
 ## New Requirements
 - CUDA: 11.8
@@ -41,6 +42,7 @@ Please download the following datasets:
 download the [pretrained model](https://pan.baidu.com/s/1JO4hjdaXPUScCI6oFtPEnQ) (code: i9ju) of CPSTN and put it into folder './CPSTN/checkpoints/pretrained/'
 download(https://pan.baidu.com/s/199dqOLHyJS9aY5YecuVglA) (code: hk25) of the registration network MRRN.
 download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw) (code: 0rbm) of fusion network DIFN.
+
 将MRRO和DIFN的预训练模型放到\UMF-CMGR-main\checkpoints中
 
 ## 开始测试
@@ -49,7 +51,7 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
        cd cpstn
        python test.py  --dataroot ../datasets/rgb2ir/RoadScene/trainA  --name rgb2ir_paired_Road_edge_pretrained  --model test  --no_dropout  --preprocess none  --checkpoints_dir ./checkpoints/pretrained models.test_model
        python test.py  --dataroot ../datasets/rgb2ir/RoadScene/testA  --name rgb2ir_paired_Road_edge_pretrained  --model test  --no_dropout  --preprocess none  --checkpoints_dir ./checkpoints/pretrained models.test_model
-
+        ```
 2.使用MRRN配准,对齐失真红外与伪红外
     ```python
        cd ../data
@@ -57,15 +59,15 @@ download the [pretrained model](https://pan.baidu.com/s/1GZrYrg_qzAfQtoCrZLJsSw)
        python get_test_data.py --ir ../datasets/rgb2ir/RoadScene/testB  --vi ../datasets/rgb2ir/RoadScene/testA  --dst ./deformable/test
        python get_svs_map.py
        cd test
-       Python test_reg.py  
-         --it ../CPSTN/results/rgb2ir_paired_Road_edge_pretrained/test_latest/images  
-         --ir   ../data/deformable/test/ir_warp  
-         --disp ../data/deformable/test  
-         --ckpt ../checkpoints/mrrn/best_model.pth  
-         --dst  ../results/registration
-
+       Python test_reg.py  \
+         --it ../CPSTN/results/rgb2ir_paired_Road_edge_pretrained/test_latest/images  \
+         --ir   ../data/deformable/test/ir_warp  \
+         --disp ../data/deformable/test  \
+         --ckpt ../checkpoints/mrrn/best_model.pth  \
+         --dst  ../results/registration \
+    ```
 配准结果如下
-UMF-CMGR-main\results\registration
+```UMF-CMGR-main\results\registration
 ├─ ir/          # 原始（失真）红外
 ├─ it/          # 伪红外（CPSTN 输出）
 ├─ ir_reg/      # 配准后的红外
@@ -74,7 +76,7 @@ UMF-CMGR-main\results\registration
 ├─ reg_grid/    # 配准后网格可视化
 ├─ ir_warp_grid/ # 变形红外叠加网格
 └─ ir_reg_grid/ # 配准红外叠加网格
-
+```
 3.使用DIFN融合,把配准后的红外图和原始可见光图进行特征级融合，生成最终的融合图
     ```python
        cd Test
@@ -84,7 +86,7 @@ UMF-CMGR-main\results\registration
          --ckpt ../checkpoints/DIFN/best_model.pth  
          --dst  ../results/fusion 
          --dim  64
-
+    ```
 融合结果如下
 UMF-CMGR-main\results\fusion
 ├─fused/: 最终融合图
@@ -95,7 +97,7 @@ UMF-CMGR-main\results\fusion
 4.配准评估
     ```python
        python metrics.py
-
+    ```
 
 
 
