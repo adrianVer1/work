@@ -14,7 +14,7 @@ By Di Wang, Jinyuan Liu, Xin Fan, and Risheng Liu
 <img src="https://github.com/wdhudiekou/UMF-CMGR/blob/main/Fig/network.png" width="80%">
 </div>
 
-原论文地址 （https://github.com/wdhudiekou/UMF-CMGR）
+原论文地址 https://github.com/wdhudiekou/UMF-CMGR
 ## Previous Requirements
 - CUDA 10.1
 - Python 3.6 (or later)
